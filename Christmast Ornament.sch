@@ -51,7 +51,7 @@ U 1 1 5AE43E0F
 P 4700 1200
 F 0 "BT1" H 4800 1300 50  0000 L CNN
 F 1 "Battery_Cell" H 4800 1200 50  0000 L CNN
-F 2 "" V 4700 1260 50  0001 C CNN
+F 2 "MisModulos:18650_SMD_Case" V 4700 1260 50  0001 C CNN
 F 3 "" V 4700 1260 50  0001 C CNN
 	1    4700 1200
 	1    0    0    -1  
@@ -566,7 +566,7 @@ U 1 1 5AEA271C
 P 5700 6250
 F 0 "BZ1" H 5850 6300 50  0000 L CNN
 F 1 "Buzzer" H 5850 6200 50  0000 L CNN
-F 2 "" V 5675 6350 50  0001 C CNN
+F 2 "MisModulos:Buzzer_8.5x8.5mm" V 5675 6350 50  0001 C CNN
 F 3 "" V 5675 6350 50  0001 C CNN
 	1    5700 6250
 	1    0    0    -1  
@@ -1200,7 +1200,7 @@ Wire Wire Line
 Wire Wire Line
 	5150 6550 5450 6550
 Connection ~ 5450 6550
-Text Notes 1550 7650 0    79   ~ 0
+Text Notes -1175 6800 0    79   ~ 0
 Comprobar si son necesarias \nestas resistencias de pull-up
 $Comp
 L R R13
@@ -1287,7 +1287,7 @@ U 1 1 5B0A20AB
 P 5150 5800
 F 0 "JP1" H 5200 5700 50  0000 L CNN
 F 1 "Jumper_NC_Dual" H 5150 5900 50  0000 C BNN
-F 2 "" H 5150 5800 50  0001 C CNN
+F 2 "MisModulos:Jumper_2-NC" H 5150 5800 50  0001 C CNN
 F 3 "" H 5150 5800 50  0001 C CNN
 	1    5150 5800
 	1    0    0    -1  
@@ -1356,4 +1356,30 @@ $EndComp
 Wire Wire Line
 	9700 1950 9700 2000
 Connection ~ 9700 2000
+Wire Notes Line
+	475  3000 11225 3000
+Wire Notes Line
+	5750 3000 5750 475 
+Wire Notes Line
+	8575 3000 8575 475 
+Wire Notes Line
+	450  5425 11225 5425
+Wire Notes Line
+	4875 3000 4875 5425
+Wire Notes Line
+	3650 5425 3650 7775
+Text Notes 1625 2875 0    79   ~ 16
+Li-Ion charger circuit
+Text Notes 6250 2875 0    79   ~ 16
+Battery protection
+Text Notes 9250 2875 0    79   ~ 16
+Voltage regulator
+Text Notes 7950 5325 0    79   ~ 16
+LEDS
+Text Notes 2425 5350 0    98   ~ 20
+uC
+Text Notes 4150 7675 0    79   ~ 16
+Buzzer
+Text Notes 1375 7675 0    79   ~ 16
+Pull-up/down resistors\n& Buttons
 $EndSCHEMATC

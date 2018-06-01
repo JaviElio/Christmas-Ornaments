@@ -566,7 +566,7 @@ U 1 1 5AEA271C
 P 5700 6250
 F 0 "BZ1" H 5850 6300 50  0000 L CNN
 F 1 "Buzzer" H 5850 6200 50  0000 L CNN
-F 2 "" V 5675 6350 50  0001 C CNN
+F 2 "MisModulos:Buzzer_8.5x8.5mm" V 5675 6350 50  0001 C CNN
 F 3 "" V 5675 6350 50  0001 C CNN
 	1    5700 6250
 	1    0    0    -1  
@@ -1176,7 +1176,7 @@ U 1 1 5B097507
 P 5150 6350
 F 0 "D3" H 5150 6450 50  0000 C CNN
 F 1 "M7" H 5150 6250 50  0000 C CNN
-F 2 "" H 5150 6350 50  0001 C CNN
+F 2 "Diodes_SMD:D_SMA_Handsoldering" H 5150 6350 50  0001 C CNN
 F 3 "" H 5150 6350 50  0001 C CNN
 	1    5150 6350
 	0    1    1    0   
@@ -1200,7 +1200,7 @@ Wire Wire Line
 Wire Wire Line
 	5150 6550 5450 6550
 Connection ~ 5450 6550
-Text Notes 1550 7650 0    79   ~ 0
+Text Notes -1175 6800 0    79   ~ 0
 Comprobar si son necesarias \nestas resistencias de pull-up
 $Comp
 L R R13
@@ -1208,7 +1208,7 @@ U 1 1 5B09D796
 P 10100 4300
 F 0 "R13" V 10180 4300 50  0000 C CNN
 F 1 "10K" V 10100 4300 50  0000 C CNN
-F 2 "" V 10030 4300 50  0001 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 10030 4300 50  0001 C CNN
 F 3 "" H 10100 4300 50  0001 C CNN
 	1    10100 4300
 	1    0    0    -1  
@@ -1238,7 +1238,7 @@ U 1 1 5B09F635
 P 4900 6950
 F 0 "R11" V 4980 6950 50  0000 C CNN
 F 1 "470" V 4900 6950 50  0000 C CNN
-F 2 "" V 4830 6950 50  0001 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 4830 6950 50  0001 C CNN
 F 3 "" H 4900 6950 50  0001 C CNN
 	1    4900 6950
 	0    1    1    0   
@@ -1268,7 +1268,7 @@ U 1 1 5B0A0BB8
 P 5100 7200
 F 0 "R12" V 5180 7200 50  0000 C CNN
 F 1 "10K" V 5100 7200 50  0000 C CNN
-F 2 "" V 5030 7200 50  0001 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 5030 7200 50  0001 C CNN
 F 3 "" H 5100 7200 50  0001 C CNN
 	1    5100 7200
 	1    0    0    -1  
@@ -1287,7 +1287,7 @@ U 1 1 5B0A20AB
 P 5150 5800
 F 0 "JP1" H 5200 5700 50  0000 L CNN
 F 1 "Jumper_NC_Dual" H 5150 5900 50  0000 C BNN
-F 2 "" H 5150 5800 50  0001 C CNN
+F 2 "MisModulos:Jumper_2-NC" H 5150 5800 50  0001 C CNN
 F 3 "" H 5150 5800 50  0001 C CNN
 	1    5150 5800
 	1    0    0    -1  
@@ -1308,7 +1308,7 @@ U 1 1 5B0A2C53
 P 2300 850
 F 0 "TP1" H 2300 1150 50  0000 C BNN
 F 1 "TEST" H 2300 1100 50  0000 C CNN
-F 2 "" H 2300 850 50  0001 C CNN
+F 2 "Measurement_Points:Measurement_Point_Square-SMD-Pad_Small" H 2300 850 50  0001 C CNN
 F 3 "" H 2300 850 50  0001 C CNN
 	1    2300 850 
 	1    0    0    -1  
@@ -1319,7 +1319,7 @@ U 1 1 5B0A2D2F
 P 4700 850
 F 0 "TP2" H 4700 1150 50  0000 C BNN
 F 1 "TEST" H 4700 1100 50  0000 C CNN
-F 2 "" H 4700 850 50  0001 C CNN
+F 2 "Measurement_Points:Measurement_Point_Square-SMD-Pad_Small" H 4700 850 50  0001 C CNN
 F 3 "" H 4700 850 50  0001 C CNN
 	1    4700 850 
 	1    0    0    -1  
@@ -1330,7 +1330,7 @@ U 1 1 5B0A2F8D
 P 6550 2000
 F 0 "TP4" H 6550 2300 50  0000 C BNN
 F 1 "TEST" H 6550 2250 50  0000 C CNN
-F 2 "" H 6550 2000 50  0001 C CNN
+F 2 "Measurement_Points:Measurement_Point_Square-SMD-Pad_Small" H 6550 2000 50  0001 C CNN
 F 3 "" H 6550 2000 50  0001 C CNN
 	1    6550 2000
 	1    0    0    -1  
@@ -1348,7 +1348,7 @@ U 1 1 5B0A5A75
 P 9700 1950
 F 0 "TP3" H 9700 2250 50  0000 C BNN
 F 1 "TEST" H 9700 2200 50  0000 C CNN
-F 2 "" H 9700 1950 50  0001 C CNN
+F 2 "Measurement_Points:Measurement_Point_Square-SMD-Pad_Small" H 9700 1950 50  0001 C CNN
 F 3 "" H 9700 1950 50  0001 C CNN
 	1    9700 1950
 	1    0    0    -1  
@@ -1356,4 +1356,30 @@ $EndComp
 Wire Wire Line
 	9700 1950 9700 2000
 Connection ~ 9700 2000
+Wire Notes Line
+	475  3000 11225 3000
+Wire Notes Line
+	5750 3000 5750 475 
+Wire Notes Line
+	8575 3000 8575 475 
+Wire Notes Line
+	450  5425 11225 5425
+Wire Notes Line
+	4875 3000 4875 5425
+Wire Notes Line
+	3650 5425 3650 7775
+Text Notes 1625 2875 0    79   ~ 16
+Li-Ion charger circuit
+Text Notes 6250 2875 0    79   ~ 16
+Battery protection
+Text Notes 9250 2875 0    79   ~ 16
+Voltage regulator
+Text Notes 7950 5325 0    79   ~ 16
+LEDS
+Text Notes 2425 5350 0    98   ~ 20
+uC
+Text Notes 4150 7675 0    79   ~ 16
+Buzzer
+Text Notes 1375 7675 0    79   ~ 16
+Pull-up/down resistors\n& Buttons
 $EndSCHEMATC
