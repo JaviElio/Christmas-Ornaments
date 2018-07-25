@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source "/home/javier/Proyectos/Christmas-Ornaments/Christmast Ornament.sch")
-    (date "mar 24 jul 2018 20:24:15 CEST")
+    (date "mié 25 jul 2018 16:54:41 CEST")
     (tool "Eeschema 4.0.6+dfsg1-1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -101,7 +101,7 @@
       (tstamp 5AE46378))
     (comp (ref Q1)
       (value 8205A)
-      (footprint Housings_SSOP:SSOP-8_2.95x2.8mm_Pitch0.65mm)
+      (footprint Housings_SSOP:TSSOP-8_4.4x3mm_Pitch0.65mm)
       (libsource (lib Mi_Libreria) (part 8205A))
       (sheetpath (names /) (tstamps /))
       (tstamp 5AE47362))
