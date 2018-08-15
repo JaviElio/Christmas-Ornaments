@@ -544,7 +544,7 @@ GPIO15
 Text Label 3300 4450 2    60   ~ 0
 GPIO15
 NoConn ~ 1650 3950
-NoConn ~ 2900 4050
+NoConn ~ 1650 4450
 NoConn ~ 2000 5000
 NoConn ~ 2100 5000
 NoConn ~ 2200 5000
@@ -926,17 +926,6 @@ F 1 "GND" H 6575 7350 50  0000 C CNN
 F 2 "" H 6575 7500 50  0001 C CNN
 F 3 "" H 6575 7500 50  0001 C CNN
 	1    6575 7500
-	1    0    0    -1  
-$EndComp
-$Comp
-L R R12
-U 1 1 5B0A0BB8
-P 6225 7200
-F 0 "R12" V 6305 7200 50  0000 C CNN
-F 1 "10K" V 6225 7200 50  0000 C CNN
-F 2 "Resistors_SMD:R_0805_HandSoldering" V 6155 7200 50  0001 C CNN
-F 3 "" H 6225 7200 50  0001 C CNN
-	1    6225 7200
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1473,14 +1462,6 @@ Wire Wire Line
 Wire Wire Line
 	6575 7150 6575 7500
 Wire Wire Line
-	6225 7050 6225 6950
-Connection ~ 6225 6950
-Wire Wire Line
-	6225 7350 6225 7400
-Wire Wire Line
-	6225 7400 6575 7400
-Connection ~ 6575 7400
-Wire Wire Line
 	5825 5650 5825 5800
 Wire Wire Line
 	5825 5800 6025 5800
@@ -1546,8 +1527,6 @@ Wire Wire Line
 	3175 6500 2875 6500
 Wire Wire Line
 	4575 6425 4575 6625
-Wire Wire Line
-	4350 6500 4975 6500
 $Comp
 L C C13
 U 1 1 5B7344DE
@@ -1592,10 +1571,12 @@ Wire Notes Line
 	5200 5425 5200 7775
 Text Notes 3500 7600 0    79   ~ 16
 Reset Circuit
+Text Label 3300 4050 2    60   ~ 0
+capInput
+Text Label 4950 6500 2    60   ~ 0
+capInput
 Wire Wire Line
-	1650 4450 1250 4450
-Text Label 1250 4450 0    60   ~ 0
-GPIO13
-Text Label 4975 6500 2    60   ~ 0
-GPIO13
+	4350 6500 4950 6500
+Wire Wire Line
+	3300 4050 2900 4050
 $EndSCHEMATC
