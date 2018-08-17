@@ -25,7 +25,7 @@
 
 
 int song = 1;
-bool mute = 1;
+bool mute = 0;
 int rstReason;
 
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel( PIXELNUM, PIXELPIN); 
@@ -61,13 +61,13 @@ void setup() {
   if (mute == false) pinMode(TONEPIN, OUTPUT);
 
 
-  rst_info *rsti;
-  rsti = ESP.getResetInfoPtr();
-  rstReason = rsti->reason;
-  Serial.println();
-  Serial.print("ESP.getResetReason = ");
-  Serial.println(ESP.getResetReason());
-  Serial.println(String("ResetInfo.reason = ") + rstReason);
+//  rst_info *rsti;
+//  rsti = ESP.getResetInfoPtr();
+//  rstReason = rsti->reason;
+//  Serial.println();
+//  Serial.print("ESP.getResetReason = ");
+//  Serial.println(ESP.getResetReason());
+//  Serial.println(String("ResetInfo.reason = ") + rstReason);
 
  
 }
