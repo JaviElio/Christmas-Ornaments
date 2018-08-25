@@ -1,5 +1,11 @@
 #include <Adafruit_NeoPixel.h>
 #include <ESP8266WiFi.h> 
+#include <DNSServer.h>
+#include <ESP8266WebServer.h>
+#include <WiFiManager.h>
+#include <ThingSpeak.h>
+#include <EEPROM.h>
+#include <Ticker.h>
 
 
 #define B3 2024
@@ -20,17 +26,21 @@
 #define PIXELPIN 14
 #define PIXELON  12
 #define TONEPIN  4
+#define CAPINPUT 5
 
-#define SLEEPSECONDS 5
+#define SLEEPMINUTES 5
 
 
 int song = 1;
-bool mute = 0;
+bool mute = 1;
 int rstReason;
+bool capInputState = true;
+unsigned long contadorChannel = 399088; 
+const char* writeContadorKey = "9SNXBSDH9JRAYYMD";
+const char* readContadorKey = "ZCJM5M59A17ORGOO";
 
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel( PIXELNUM, PIXELPIN); 
-
-
+uint8_t cheers;
+uint8_t savedCheers;
 
 /*******************************************************
  * Songs
@@ -54,20 +64,48 @@ int Decklength = 18;
 int Decknotes[] = {G4, F4, E4, D4, C4, D4, E4, C4, D4, E4, F4, D4, E4, D4, C4, B3, C4, 0};
 int Deckbeats[] = {4, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 4, 1, 2, 2, 4, 1};
 
+
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel( PIXELNUM, PIXELPIN); 
+WiFiManager wifimanager;
+WiFiClient client;
+Ticker ticker;
+
+
+
+
 void setup() {
 
+  // Config capInput and save value
+  pinMode(CAPINPUT,INPUT);
+  capInputState = digitalRead(CAPINPUT);
+  
+  pinMode(PIXELON,OUTPUT);
+  pinMode(PIXELPIN,OUTPUT);
+  digitalWrite(PIXELON,LOW);
+  digitalWrite(PIXELPIN,HIGH);
+
+  pinMode(LED_BUILTIN,OUTPUT);
+  digitalWrite(LED_BUILTIN,HIGH);
+
   Serial.begin(115200);
+  Serial.println();
   pixels.begin();
+  EEPROM.begin(4);
+
   if (mute == false) pinMode(TONEPIN, OUTPUT);
 
 
-//  rst_info *rsti;
-//  rsti = ESP.getResetInfoPtr();
-//  rstReason = rsti->reason;
-//  Serial.println();
-//  Serial.print("ESP.getResetReason = ");
-//  Serial.println(ESP.getResetReason());
-//  Serial.println(String("ResetInfo.reason = ") + rstReason);
+  ///////////////////////
+  // CHECK RESET REASON
+  ///////////////////////
+  //  rst_info *rsti;
+  //  rsti = ESP.getResetInfoPtr();
+  //  rstReason = rsti->reason;
+  //  Serial.println();
+  //  Serial.print("ESP.getResetReason = ");
+  //  Serial.println(ESP.getResetReason());
+  //  Serial.println(String("ResetInfo.reason = ") + rstReason);
+  //////////////////////////
 
  
 }
@@ -75,50 +113,80 @@ void setup() {
 void loop() {
 
 
- 
-  // If reset button is pressed
-  //if ( rstReason == 6) {
-     song = random(0,4);
-  
-     Serial.print("Play song ");
-     Serial.println(song);
-     digitalWrite(PIXELON, HIGH);
-  
-     switch (song) {
-      case 1:
-        Frosty();
-        song++;
-        break;
-      case 2:
-        Merry();
-        song++;
-        break;
-      case 3:
-        Deck();
-        song++;
-        break;
-      case 4:
-        Jingle();
-        song = 1;
-        break;
-    } 
-  
-  
-    digitalWrite(PIXELON, LOW);
-    digitalWrite(PIXELPIN, HIGH);
-    Serial.println("EndLoop");
-    ESP.deepSleep(SLEEPSECONDS*1000*1000);
+  if (capInputState == true) {
 
-//  }
-//  else {
-//
-//    // Comprobar número de pulsaciones e ir a dormir....
-//
-//    Serial.println();
-//    Serial.println(rstReason,DEC);
-//    ESP.deepSleep(SLEEPSECONDS*1000*1000);
-//    
-//  }
+        
+       // 1.Check current "cheers"
+       // 2.Play Music if required
+       // 3.Save new "cheers" number
+       // 4.Sleep
+       
+       wifimanager.autoConnect("Arbolito");
+       Serial.println();
+       Serial.println("Conectado!!");
+       ticker.detach();
+       digitalWrite(PIXELON, LOW);
+       digitalWrite(PIXELPIN, HIGH);
+
+       ThingSpeak.begin(client,"api.thingspeak.com",80);
+       cheers = ThingSpeak.readIntField(contadorChannel,1, readContadorKey);
+       Serial.print("Current Cheers: ");
+       Serial.println(cheers);
+
+       savedCheers = EEPROM.read(0);
+       Serial.print("Saved Cheers: ");
+       Serial.println(savedCheers);
+
+
+       if (cheers != savedCheers && cheers != 0) {
+        
+          PlaySong();       
+          EEPROM.write(0,cheers);
+          EEPROM.commit();
+       
+       }
+
+       
+       Serial.print("Sleep ");
+       Serial.print(SLEEPMINUTES);
+       Serial.println(" minutes");
+       ESP.deepSleep(SLEEPMINUTES*60*1000*1000);
+    
+  }
+  else{
+
+
+      // 1.Play Music
+      // 2.Check current "cheers" and increase 1
+      // 3.Save new "cheers" number
+      // 4.Sleep
+
+      PlaySong();
+
+      wifimanager.setAPCallback(configModeCallback);
+      wifimanager.autoConnect("Arbolito");
+      Serial.println();
+      Serial.println("Conectado!!");
+      ticker.detach();
+      digitalWrite(PIXELON, LOW);
+      digitalWrite(PIXELPIN, HIGH);
+      
+
+      ThingSpeak.begin(client,"api.thingspeak.com",80);
+      cheers = ThingSpeak.readIntField(contadorChannel,1, readContadorKey);
+      Serial.print("Current Cheers: ");
+      Serial.println(cheers);
+
+      ThingSpeak.writeField(contadorChannel, 1, cheers +1, writeContadorKey);
+      Serial.print("New Cheers: ");
+      Serial.println(cheers +1);
+
+      Serial.print("Sleep ");
+      Serial.print(SLEEPMINUTES);
+      Serial.println(" minutes");
+      ESP.deepSleep(SLEEPMINUTES*60*1000*1000);
+
+  }
 
 }
 
@@ -142,6 +210,39 @@ void showRandomColors(int numPixel) {
 
 }
 
+
+void PlaySong() {
+     song = random(1,5);
+  
+     Serial.print("Play song ");
+     Serial.println(song);
+     digitalWrite(PIXELON, HIGH);
+  
+     switch (song) {
+      case 1:
+        Serial.println("Frosty");
+        Frosty();
+        break;
+      case 2:
+        Serial.println("Merry");
+        Merry();
+        break;
+      case 3:
+        Serial.println("Deck");
+        Deck();
+        break;
+      case 4:
+        Serial.println("Jingle");
+        Jingle();
+        break;
+    } 
+  
+  
+    digitalWrite(PIXELON, LOW);
+    digitalWrite(PIXELPIN, HIGH);
+    Serial.println("End Song");
+
+}
 
 
 void Frosty() {
@@ -235,6 +336,40 @@ void playTone(int tone, int duration) {
   }
 }
 
+void configModeCallback (WiFiManager *myWiFiManager) {
+  Serial.println("Entered config mode");
+  Serial.println(WiFi.softAPIP());
+  //if you used auto generated SSID, print it
+  Serial.println(myWiFiManager->getConfigPortalSSID());
+  ticker.attach(1, tick);
+
+}
+
+void tick()
+{
+  //toggle state of one front led
+  digitalWrite(PIXELON, HIGH);  
+
+  if (pixels.getPixelColor(1) == 327680) {
+
+      for ( int i=0; i<PIXELNUM; i++) {
+        pixels.setPixelColor(i, 0);
+      }
+      pixels.show();
+      digitalWrite(PIXELON, LOW);
+      digitalWrite(PIXELPIN, HIGH);
+  }
+  else {
+
+      for ( int i=0; i<PIXELNUM; i++) {
+        pixels.setPixelColor(i, 0);
+      }
+      
+      pixels.setPixelColor(1,pixels.Color(5,0,0));
+      pixels.show();  
+  }
   
+}   
+
 
 
