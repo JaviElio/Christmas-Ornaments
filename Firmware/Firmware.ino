@@ -32,7 +32,7 @@
 
 
 int song = 1;
-bool mute = 1;
+bool mute = 0;
 int rstReason;
 bool capInputState = true;
 unsigned long contadorChannel = 399088; 
