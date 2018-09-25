@@ -35,6 +35,7 @@ int song = 1;
 bool mute = 0;
 int rstReason;
 bool capInputState = true;
+unsigned int tickCounter = 0;
 unsigned long contadorChannel = 399088;
 const char* writeContadorKey = "9SNXBSDH9JRAYYMD";
 const char* readContadorKey = "ZCJM5M59A17ORGOO";
@@ -355,26 +356,24 @@ void configModeCallback (WiFiManager *myWiFiManager) {
 void tick()
 {
   //toggle state of one front led
+
+  
   digitalWrite(PIXELON, HIGH);
 
-  if (pixels.getPixelColor(0) == 327680) {
+  if (tickCounter % 2 == 1) {
 
-    for ( int i = 0; i < PIXELNUM; i++) {
-      pixels.setPixelColor(i, 0);
-    }
-    pixels.show();
     digitalWrite(PIXELON, LOW);
     digitalWrite(PIXELPIN, HIGH);
-  }
-  else {
+    
+ }
+  else if (tickCounter % 2 == 0) {
 
-    for ( int i = 0; i < PIXELNUM; i++) {
-      pixels.setPixelColor(i, 0);
-    }
-
+    pixels.clear();
     pixels.setPixelColor(0, pixels.Color(5, 0, 0));
     pixels.show();
   }
+
+   tickCounter++;
 
 }
 
