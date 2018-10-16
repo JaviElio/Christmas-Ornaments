@@ -35,7 +35,6 @@ int song = 1;
 bool mute = 0;
 int rstReason;
 bool capInputState = true;
-unsigned int tickCounter = 0;
 unsigned long contadorChannel = 399088;
 const char* writeContadorKey = "9SNXBSDH9JRAYYMD";
 const char* readContadorKey = "ZCJM5M59A17ORGOO";
@@ -72,8 +71,6 @@ WiFiClient client;
 Ticker ticker;
 
 
-
-
 void setup() {
 
   // Config capInput and save value
@@ -82,8 +79,11 @@ void setup() {
 
   pinMode(PIXELON, OUTPUT);
   pinMode(PIXELPIN, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(PIXELON, LOW);
   digitalWrite(PIXELPIN, HIGH);
+  digitalWrite(LED_BUILTIN, HIGH);
+  
 
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, HIGH);
@@ -129,6 +129,7 @@ void loop() {
     Serial.println();
     Serial.println("Conectado!!");
     ticker.detach();
+    digitalWrite(LED_BUILTIN, HIGH);
     digitalWrite(PIXELON, LOW);
     digitalWrite(PIXELPIN, HIGH);
 
@@ -172,6 +173,7 @@ void loop() {
     Serial.println();
     Serial.println("Conectado!!");
     ticker.detach();
+    digitalWrite(LED_BUILTIN, HIGH);
     digitalWrite(PIXELON, LOW);
     digitalWrite(PIXELPIN, HIGH);
 
@@ -355,25 +357,10 @@ void configModeCallback (WiFiManager *myWiFiManager) {
 
 void tick()
 {
-  //toggle state of one front led
+  //toggle state of LED_BUILTIN
 
-  
-  digitalWrite(PIXELON, HIGH);
+  digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
 
-  if (tickCounter % 2 == 1) {
-
-    digitalWrite(PIXELON, LOW);
-    digitalWrite(PIXELPIN, HIGH);
-    
- }
-  else if (tickCounter % 2 == 0) {
-
-    pixels.clear();
-    pixels.setPixelColor(0, pixels.Color(5, 0, 0));
-    pixels.show();
-  }
-
-   tickCounter++;
 
 }
 
