@@ -19,13 +19,16 @@ If the ornament could not reach a wifi AP, a captative portal is activated to co
 
 
 
+
+
+
 PICTURES:
 
 <img src="Images/PCB_3D.jpg" width=400>
 
-<img src="Images/PCB_Front.jpg" width=400>
+<img src="Images/PCB_Front.jpg" width=400>	<img src="Images/PCB_Back.jpg" width=400>	
 
-<img src="Images/PCB_Back.jpg" width=400>	
+
 
 
 
